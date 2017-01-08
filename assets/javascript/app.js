@@ -7,3 +7,4 @@ var timeDifference = moment().diff(moment(firstTrainTime,'HHmm'),'minutes');
 
 var remainder = parseInt(timeDifference)%trainFrequency
 var nextTrain = Math.abs(remainder-trainFrequency);
+

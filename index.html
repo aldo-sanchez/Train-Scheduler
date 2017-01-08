@@ -5,12 +5,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link href="css/style.css" rel="stylesheet">-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   </head>
   <body>
-  
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  
-  <script type="text/javascript" src="assets/javascript/moment.min.js"></script>
-  <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <header>
+      <div id="top" class="top-nav">
+        <div class="container">
+          <div class="nav-wrapper">
+            <h1>Train Scheduler</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container" id="current_train">
+        <h5>Current Train Schedule</h5>
+        <div class="divider"></div>
+        <table>
+          <thead>
+            <tr>
+                <th data-field="train_name">Train Name</th>
+                <th data-field="destination">Destination</th>
+                <th data-field="frequency">Frequency (min)</th>
+                <th data-field="next_arrival">Next Arrival</th>
+                <th data-field="minutes_away">Minutes Away</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Choo choo</td>
+              <td>El Paso</td>
+              <td>25</td>
+              <td>1000</td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div id="add-train-title"class="col s2">
+            <h5>Add Train</h5>
+          </div>
+          <div class="col s3">
+            <button id="submit" class="btn-floating btn-large waves-effect waves-light red" type="submit" name="action"><i class="material-icons">add</i></button>
+          </div>
+        </div>
+              
+        <div class="divider"></div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">train</i>
+            <input id="train_name" type="text" class="validate">
+            <label for="train_name">Train Name</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">place</i>
+            <input id="destination" type="text" class="validate">
+            <label for="destination">Destination</label>
+          </div>
+          <div>
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix">access_time</i>
+              <input id="train_time" type="text" class="validate">
+              <label for="train_time">First Train Time (HHmm)</label>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">autorenew</i>
+              <input id="train_frequency" type="text" class="validate">
+              <label for="train_frequency">Train Frequency (min)</label>
+            </div>
+          </div>
+        </div>
+    </main>
+    <footer>
+      
+    </footer>
+
+    <!--scripts-->
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>  
+    <!--materialize-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <!--moment.js-->
+    <script type="text/javascript" src="assets/javascript/moment.min.js"></script>
+    <!--app.js-->
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
   </body>
 </html>
