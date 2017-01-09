@@ -8,26 +8,31 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// writeNewPost(123,'usertest1','pic1','title1','body1')
-
-function writeNewPost(uid, username, picture, title, body) {
+function writeNewPost(trainName, destination, firstTrainTime, trainFrequency) {
   // A post entry.
   var postData = {
-    author: username,
-    uid: uid,
-    body: body,
-    title: title,
-    starCount: 0,
-    authorPic: picture
+    trainName: trainName,
+    destination: destination,
+    firstTrainTime: firstTrainTime,
+    trainFrequency: trainFrequency
   };
 
-  // Get a key for a new Post.
-  var newPostKey = firebase.database().ref().child('posts').push().key;
+  // Get a key.
+  var newPostKey = firebase.database().ref().push().key;
 
-  // Write the new post's data simultaneously in the posts list and the user's post list.
+  // Write the new data under key
   var updates = {};
-  updates['/posts/' + newPostKey] = postData;
-  updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+  updates[newPostKey] = postData;
 
   return firebase.database().ref().update(updates);
 }
+
+var database = firebase.database().ref();
+database.on('value', function(snapshot) {
+  console.log('parent',snapshot.val())
+  snapshot.forEach(function(childSnapshot){
+    var key = childSnapshot.key;
+    console.log('child',childSnapshot.val());
+  })
+});
+
