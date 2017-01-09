@@ -10,6 +10,8 @@ $('#submit').on('click',function(){
     $('#destination').val('');
     $('#train_time').val('');
     $('#train_frequency').val('');
+
+    writeNewPost(trainName,destination,firstTrainTime,trainFrequency);
   }
   return false
 });
