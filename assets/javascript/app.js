@@ -1,5 +1,7 @@
 console.log('hello world');
 console.log(moment('20111031', 'YYYYMMDD').fromNow());
+var trainName;
+var destination;
 var firstTrainTime = '0700';
 var trainFrequency = 30;
 var testTime = '1010';
