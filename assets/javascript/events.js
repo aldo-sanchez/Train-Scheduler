@@ -10,6 +10,8 @@ $('#submit').on('click',function(){
     $('#destination').val('');
     $('#train_time').val('');
     $('#train_frequency').val('');
+    
+    $('tbody').empty();
 
     writeNewPost(trainName,destination,firstTrainTime,trainFrequency);
   }
@@ -42,4 +44,29 @@ function formValidation(){
     return true
   }
   else{return false}
+}
+
+function updateTable(trainName, destination, trainFrequency){
+  console.log('in')
+  // $('tbody').empty();
+  tr = $('<tr></tr>');
+  td_trainName = $('<td></td>');
+  td_destination = $('<td></td>');
+  td_trainFrequency = $('<td></td>');
+  td_nextArrival = $('<td></td>');
+  td_minutesAway = $('<td></td>');
+
+  td_trainName.text(trainName);
+  td_destination.text(destination);
+  td_trainFrequency.text(trainFrequency);
+  td_nextArrival.text('');
+  td_minutesAway.text('');
+
+  td_trainName.appendTo(tr);
+  td_destination.appendTo(tr);
+  td_trainFrequency.appendTo(tr);
+  td_nextArrival.appendTo(tr);
+  td_minutesAway.appendTo(tr);
+
+  tr.appendTo($('tbody'));
 }
