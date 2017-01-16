@@ -1,5 +1,11 @@
 var tableArray = [];
 
+$(document).ready(function(){
+  // Update table every 3minutes
+  setInterval(function(){getNextTrain()},60000*3);
+})
+
+
 $('#submit').on('click',function(){
   //if formValidation() is true then we submit all values
   if(formValidation()){
@@ -58,16 +64,22 @@ function formValidation(){
   else{return false}
 }
 
+// Calculates next train and minutesAway using the global tableArray
 function getNextTrain(){
   for(row = 0; row < tableArray.length; row++){
+    // define firstTrainTime and trainFrequency
     var firstTrainTime = tableArray[row][2];
     var trainFrequency = tableArray[row][3];
-
-    var timeDifference = moment().diff(moment(firstTrainTime,'HHmm'),        'minutes')
+    // calculate time difference between now and firstTrainTime
+    var timeDifference = moment().diff(moment(firstTrainTime,'HHmm'),        'minutes');
+    // calculate the remainder of timeDifference and trainFrequency
     var remainder = parseInt(timeDifference)%trainFrequency;
+    // minutesAway = remainder - trainFrequency. use absolute value to only get positive minutes.
     var minutesAway = Math.abs(remainder-trainFrequency);
+    // add minutesAway to now to get when nextTrain arrives
     var nextTrain = moment().add(minutesAway,'minutes').format('HH:mm');
 
+    // set values in tableArray for minutesAway and nextTrain
     tableArray[row][4] = minutesAway;
     tableArray[row][5] = nextTrain;
   }

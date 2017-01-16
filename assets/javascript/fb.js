@@ -9,7 +9,7 @@ var config = {
 firebase.initializeApp(config);
 
 function writeNewPost(trainName, destination, firstTrainTime, trainFrequency) {
-  // A post entry.
+  // Post entry.
   var postData = {
     trainName: trainName,
     destination: destination,
