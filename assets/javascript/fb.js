@@ -29,16 +29,24 @@ function writeNewPost(trainName, destination, firstTrainTime, trainFrequency) {
 
 var database = firebase.database().ref();
 database.on('value', function(snapshot) {
-  // console.log('parent',snapshot.val())
+  // var tableArray = [];
+  var count = 0;//counter to be used for html ids
   snapshot.forEach(function(childSnapshot){
+    
     var key = childSnapshot.key;
-    // console.log('child',childSnapshot.val());
+
+    // get values for nodes under key
     var trainName = childSnapshot.val().trainName;
     var destination = childSnapshot.val().destination;
     var firstTrainTime = childSnapshot.val().firstTrainTime;
     var trainFrequency = childSnapshot.val().trainFrequency;
 
-    updateTable(trainName,destination,trainFrequency);
-  })
-});
+    //populate tableArray
+    tableArray[count] = [trainName,destination,firstTrainTime,trainFrequency]
 
+    // getNextTrain(count);
+    
+    count++;    
+  })
+  getNextTrain();
+});

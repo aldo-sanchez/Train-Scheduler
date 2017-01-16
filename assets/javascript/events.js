@@ -1,17 +1,17 @@
+var tableArray = [];
+
 $('#submit').on('click',function(){
   //if formValidation() is true then we submit all values
   if(formValidation()){
-    trainName = $('#train_name').val().trim();
-    destination = $('#destination').val().trim();
-    firstTrainTime = $('#train_time').val().trim();
-    trainFrequency = $('#train_frequency').val().trim();
+    var trainName = $('#train_name').val().trim();
+    var destination = $('#destination').val().trim();
+    var firstTrainTime = $('#train_time').val().trim();
+    var trainFrequency = $('#train_frequency').val().trim();
 
-    $('#train_name').val('');
-    $('#destination').val('');
-    $('#train_time').val('');
-    $('#train_frequency').val('');
+    $('input').val('');
+    // $('input').removeClass('active')
+    Materialize.updateTextFields();
     
-    $('tbody').empty();
 
     writeNewPost(trainName,destination,firstTrainTime,trainFrequency);
   }
@@ -39,6 +39,18 @@ function formValidation(){
     isReady = false;
     console.log('need military time')
   }
+
+  // check if train time hour is valid <24
+  if(parseInt(inputs[2].value.substring(0,2)) > 24){
+    isReady = false;
+    console.log('invalid hour')
+  }
+  
+  // check if train time minutes are valid < 60
+  if(parseInt(inputs[2].value.substring(2)) > 60){
+    isReady = false;
+    console.log('invalid minutes')
+  }
   // finalize validation
   if(isReady){
     return true
@@ -46,27 +58,50 @@ function formValidation(){
   else{return false}
 }
 
-function updateTable(trainName, destination, trainFrequency){
-  console.log('in')
-  // $('tbody').empty();
-  tr = $('<tr></tr>');
-  td_trainName = $('<td></td>');
-  td_destination = $('<td></td>');
-  td_trainFrequency = $('<td></td>');
-  td_nextArrival = $('<td></td>');
-  td_minutesAway = $('<td></td>');
+function getNextTrain(){
+  for(row = 0; row < tableArray.length; row++){
+    var firstTrainTime = tableArray[row][2];
+    var trainFrequency = tableArray[row][3];
 
-  td_trainName.text(trainName);
-  td_destination.text(destination);
-  td_trainFrequency.text(trainFrequency);
-  td_nextArrival.text('');
-  td_minutesAway.text('');
+    var timeDifference = moment().diff(moment(firstTrainTime,'HHmm'),        'minutes')
+    var remainder = parseInt(timeDifference)%trainFrequency;
+    var minutesAway = Math.abs(remainder-trainFrequency);
+    var nextTrain = moment().add(minutesAway,'minutes').format('HH:mm');
 
-  td_trainName.appendTo(tr);
-  td_destination.appendTo(tr);
-  td_trainFrequency.appendTo(tr);
-  td_nextArrival.appendTo(tr);
-  td_minutesAway.appendTo(tr);
+    tableArray[row][4] = minutesAway;
+    tableArray[row][5] = nextTrain;
+  }
+  updateTable();
+}
 
-  tr.appendTo($('tbody'));
+function updateTable(){
+  $('tbody').empty();
+  for(row = 0; row < tableArray.length; row++){
+    trainName = tableArray[row][0];
+    destination = tableArray[row][1];
+    trainFrequency = tableArray[row][3];
+    minutesAway = tableArray[row][4];
+    nextArrival = tableArray[row][5];
+    
+    idtr = 'd'+row;//short hand for id given to table tags
+
+    tr = $('<tr></tr>');
+    tr.attr({id: 't'+row});
+
+    // create html tags for table values
+    td_trainName = $('<td></td>');
+    td_destination = $('<td></td>');
+    td_trainFrequency = $('<td></td>');
+    td_nextArrival = $('<td></td>');
+    td_minutesAway = $('<td></td>');
+
+    // add table information and append to tr
+    td_trainName.attr({id: idtr}).text(trainName).appendTo(tr);
+    td_destination.attr({id: idtr}).text(destination).appendTo(tr);
+    td_trainFrequency.attr({id: idtr}).text(trainFrequency).appendTo(tr);
+    td_nextArrival.attr({id: idtr}).text(nextArrival).appendTo(tr);
+    td_minutesAway.attr({id: idtr}).text(minutesAway).appendTo(tr);
+    
+    tr.appendTo($('tbody'));
+  }
 }
