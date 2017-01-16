@@ -1,9 +1,28 @@
-
-.top-nav{
-  padding-bottom: 20px;
+h1{
+  color: white;
+  line-height: 121px;
 }
+.top-nav{
+  height: 122px;
+  box-shadow: none;
+}
+
+nav .nav-wrapper{
+  position: relative;
+  height: 100%;
+}
+
+#top .container{
+  /*padding: 0;*/
+  margin-top: -31px;
+  width: 100%;
+  height: 100%;
+  padding-left: 15%;
+  background-color: #3949ab;
+}
+
 .divider{
-  background-color: red;
+
   margin-bottom: 15px;
 }
 
@@ -15,4 +34,18 @@ table{
   margin-right: 0;
   padding-right: 0;
   width:13%;
+}
+
+.input-field input[type=text]:focus + label {
+  color: #d81b60;
+}
+
+.input-field .prefix.active{
+  color: #d81b60 ;
+}
+
+
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #d81b60  ;
+  box-shadow: 0 1px 0 0 #d81b60  ;
 }
