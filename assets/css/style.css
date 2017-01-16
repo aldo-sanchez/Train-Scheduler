@@ -49,3 +49,13 @@ table{
   border-bottom: 1px solid #d81b60  ;
   box-shadow: 0 1px 0 0 #d81b60  ;
 }
+
+input[type=text].valid{
+  border-bottom: 1px solid #d81b60  ;
+  box-shadow: 0 1px 0 0 #d81b60  ;
+}
+
+.input-field .prefix{
+  color: #3949ab;
+}
+
